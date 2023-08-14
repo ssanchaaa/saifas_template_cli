@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# `sfauto` launcher for sfauto
+
+### set the current script path as PWD
+pushd "${BASH_SOURCE%/*}" >> "/dev/null"
+
+## includes
+
+### include `index.inc.sh`
+pIndexIncSh="./includes/index.inc.sh"
+source ${pIndexIncSh}
+
+### return the old PWD
+popd >> "/dev/null"
+
+
+## logic
+
+if [  -z "$1" ]; 
+then
+    echo -e "A parameter is required.\nRun with --help for more information."
+else
+    while [[ "$#" -gt 0 ]]
+    do
+        case $1 in
+            -h|--help) _help_print; exit 0 ;;
+            -v|--version) _version_print; exit 0 ;;
+            *) echo -e "Bad parameter.\nRun with --help for more information."
+        esac
+        shift
+    done
+fi
+
